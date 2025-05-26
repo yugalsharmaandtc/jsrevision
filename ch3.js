@@ -117,6 +117,72 @@ console.log("You win")
 
 //eg
 
-let str="jhndn"// This is a string
+let str1="jhndn"// This is a string
 
 // Methods in string
+// Note: All the string methods return a new string and do not modify the original string.And strings are immutable in JavaScript.
+
+// String Creation
+let str = "Hello, World!";
+console.log(str[0]);          // "H"
+
+// Character Access
+console.log(str.charAt(0));        // "H"
+console.log(str.charCodeAt(0));    // 72
+console.log("😊".codePointAt(0));  // 128522
+
+// Search Methods
+console.log(str.includes("World"));     // true
+console.log(str.indexOf("o"));          // 4
+console.log(str.lastIndexOf("o"));      // 8
+console.log(str.startsWith("Hello"));   // true
+console.log(str.endsWith("!"));         // true
+
+// Substring Methods
+console.log(str.slice(7, 12));          // "World"
+console.log(str.substring(7, 12));      // "World"
+console.log(str.substr(7, 5));          // "World" (deprecated)
+
+// Modification Methods
+console.log(str.toUpperCase());         // "HELLO, WORLD!"
+console.log(str.toLowerCase());         // "hello, world!"
+console.log("  test  ".trim());         // "test"
+console.log("  test".trimStart());      // "test"
+console.log("test  ".trimEnd());        // "test"
+console.log(str.replace("World", "JS"));// "Hello, JS!"
+console.log("a-b-c".replaceAll("-", "_"));// "a_b_c"
+
+// Split & Join
+console.log(str.split(", "));           // ["Hello", "World!"]
+
+// Combine Strings
+console.log("Hello".concat(", ", "JS"));// "Hello, JS"
+
+// Test or Match
+console.log("test123".match(/\d+/));    // ["123"]
+let matches = [..."test1test2".matchAll(/\d+/g)];
+console.log(matches.map(m => m[0]));    // ["1", "2"]
+console.log("hello123".search(/\d/));   // 5
+
+// Other Utilities
+console.log("Hi ".repeat(3));           // "Hi Hi Hi "
+console.log("a".localeCompare("b"));    // -1
+console.log("\u0041\u030A".normalize("NFC")); // "Å"
+
+// Accessing characters like an array
+console.log(str[0]);                    // "H"
+
+// Template Literals (not a method, but useful)
+let name = "John";
+console.log(`Hello, ${name}`);          // "Hello, John"
+
+
+/*
+Note: let str = "IloveJS";
+str[0] = "S";
+console. log(str); //SloveJs
+
+but this is incorrect it will again give ilovejs because strings are immutable in JavaScript.
+If we want to replace a character in a string we can use the replace method.
+*/
+ 
