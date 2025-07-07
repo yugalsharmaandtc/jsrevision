@@ -303,10 +303,230 @@ Raju.work(); // Output: treat patients
 // SUPER KEYWORD IN JS
 
 /*
+
+(In JavaScript, the super keyword is used in class-based inheritance to access and call methods or the constructor of a parent class from a child class. It’s primarily used within the class syntax introduced in ES6 and is essential for properly setting up inheritance.)
+
+
 The super keyword is used to call the constructor of its parent class to access the parent's
 properties and methods.
 super( args) // calls Parent's constructor
 super.parentMethod( args )// calls Parent's method
+
+EG:Using super() to Call the Parent Constructor
+
+class Animal {
+  constructor(name) {
+    this.name = name;
+  }
+  speak() {
+    console.log(`${this.name} makes a sound.`);
+  }
+}
+
+class Dog extends Animal {
+  constructor(name, breed) {
+    super(name); // Call the parent (Animal) constructor to set 'name'
+    this.breed = breed; // Add child-specific property
+  }
+}
+
+const myDog = new Dog("Buddy", "Golden Retriever");
+myDog.speak(); // Output: Buddy makes a sound.
+console.log(myDog.breed); // Output: Golden Retriever
+
+EG2: Using super to Call a Parent Method
+
+class Animal {
+  constructor(name) {
+    this.name = name;
+  }
+  speak() {
+    console.log(`${this.name} makes a sound.`);
+  }
+}
+
+class Dog extends Animal {
+  constructor(name, breed) {
+    super(name);
+    this.breed = breed;
+  }
+  speak() {
+    super.speak(); // Call the parent’s speak method
+    console.log(`${this.name} the ${this.breed} barks loudly!`);
+  }
+}
+
+const myDog = new Dog("Buddy", "Golden Retriever");
+myDog.speak();
+// Output:
+// Buddy makes a sound.
+// Buddy the Golden Retriever barks loudly!
+
+EG3: Using super in a More Complex Scenario
+
+class Vehicle {
+  constructor(brand) {
+    this.brand = brand;
+    this.speed = 0;
+  }
+  accelerate() {
+    this.speed += 10;
+    console.log(`${this.brand} is moving at ${this.speed} km/h.`);
+  }
+}
+
+class Car extends Vehicle {
+  constructor(brand, model) {
+    super(brand); // Initialize 'brand' and 'speed' from Vehicle
+    this.model = model;
+  }
+  accelerate() {
+    super.accelerate(); // Call parent’s accelerate method
+    console.log(`The ${this.model} feels sporty!`);
+  }
+}
+
+const myCar = new Car("Toyota", "Corolla");
+myCar.accelerate();
+// Output:
+// Toyota is moving at 10 km/h.
+// The Corolla feels sporty!
+
+
+NOTES:(Important Notes:
+->Must Call super() Before this: In a child class’s constructor, you must call super() before accessing this. Otherwise, you’ll get a ReferenceError: Must call super constructor in derived class before accessing 'this' or returning from derived constructor.
+
+class Dog extends Animal {
+  constructor(name, breed) {
+    this.breed = breed; // Error: 'this' is not allowed before super()
+    super(name);
+  }
+}
+->No super in Constructor Functions: In traditional constructor functions (non-class syntax), you use Parent.call(this, args) instead of super. Example:
+
+
+function Animal(name) {
+  this.name = name;
+}
+function Dog(name, breed) {
+  Animal.call(this, name); // Equivalent to super(name)
+  this.breed = breed;
+}
+->Static Methods: super can also be used in static methods to call a parent class’s static method, though this is less common.
+
+class Animal {
+  static describe() {
+    return "This is an animal class.";
+  }
+}
+class Dog extends Animal {
+  static describe() {
+    return super.describe() + " Specifically, it’s for dogs.";
+  }
+}
+console.log(Dog.describe()); // Output: This is an animal class. Specifically, it’s for dogs.
+
+
+->Common Pitfalls:
+1.Forgetting super(): If you omit super() in a child class’s constructor, you’ll get an error.
+2.Using super Outside Classes: super only works in class syntax, not in regular functions or arrow functions.
+3.Overriding Without super: If you override a parent method and don’t call super.methodName(), you lose the parent’s functionality unless that’s intentional.
+
+->When to Use super:
+1.Use super() in the constructor to initialize parent properties.
+2.Use super.methodName() to reuse or extend parent methods.
+
+3.It’s essential in inheritance to ensure the parent class’s setup is properly applied to the child class.
+)
+
+EG From video(
+class Person{
+constructor{
+this.species = "homo sapiens";
+}
+eat(){
+console.log ("eat");
+}
+class Engineer extends Person (
+constructor (branch){
+super(); //to invoke parent class constructor
+this.branch = branch;
+}
+work(){
+console. log("solve problems,new Engineer");
+}
+}
+
+let engObj=new Engineer("computer science");
+
+
+Questions:
+
+1.Qs. You are creating a website for your college. Create a class User with 2 properties, name &
+email. It also has a method called viewData() that allows user to view website data.
+
+2.Qs. Create a new class called Admin which inherits from User. Add a new method called
+editData to Admin that allows it to edit website data.
+
+1=
+
+class User{
+constructor(name,email){
+this.name = name;
+this.email = email;
+}
+viewData(){
+console.log(`The name is ${this.name} and the mail id is ${this.email})
+}
+}
+
+let userObj=new User("John","john@example.com");
+userObj.viewData(); // Output: The name is John and the mail id is john@example.com
+
+
+class Admin extends User{
+super(name,email); //to invoke parent class constructor
+editData(newname,newEmail){
+console.log(`The updated name is ${newname} and the updated mail id is ${newEmail}`);
+}
+}
+
+let adminObj=new Admin("Jane","jane@example.com");
+adminObj.viewData(); // Output: The name is Jane and the mail id is jane@example.com
+
+---->>>below is updated part for second question after getting the mistake the above one is written by me and below by ai by giving questions to it.
+
+
+class User {
+  constructor(name, email) {
+    this.name = name;
+    this.email = email;
+  }
+  viewData() {
+    const websiteData = "Welcome to our college website!"; // Example website data
+    console.log(`User: ${this.name}, Email: ${this.email}, Website Data: ${websiteData}`);
+  }
+}
+
+
+
+
+class Admin extends User {
+  constructor(name, email) {
+    super(name, email); // Properly inherit name and email
+  }
+  editData(newName, newEmail) {
+    this.name = newName;
+    this.email = newEmail;
+    console.log(`Updated: Name is ${this.name}, Email is ${this.email}`);
+  }
+}
+
+
+
+
+)
+
 */
 
 
