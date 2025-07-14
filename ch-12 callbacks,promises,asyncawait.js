@@ -107,10 +107,11 @@ setTimeout (() => {
 console. log("data", datald);
 if (getNextData) {
 getNextData ();
-}, 2000):
+}
+}, 2000);
 }
 
-getData (1 ()=>{,
+getData (1,()=>{
 getData (2) ;
 });
 */
